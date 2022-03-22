@@ -60,9 +60,23 @@ function Main() {
   return (
     <div className="main">
       <h1>ToDo List</h1>
-      {showModal && <Modal task={editedTask} handleSubmit={handleSubmitEdited} setShowModal={setShowModal} />}
-      <Form task={newTask} handleChange={handleChange} handleSubmit={handleSubmit} />
-      <TaskList tasks={tasks} handleEdit={handleEdit} handleDelete={handleDelete} />
+      {showModal && (
+        <Modal
+          task={editedTask}
+          handleSubmit={handleSubmitEdited}
+          setShowModal={setShowModal}
+        />
+      )}
+      <Form
+        task={newTask}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+      <TaskList
+        tasks={tasks}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 }
