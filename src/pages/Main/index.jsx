@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Form from '../../components/Form';
 import Modal from '../../components/Modal';
@@ -14,6 +14,15 @@ function Main() {
     name: '',
     index: -1
   });
+
+  useEffect(() => {
+    const tasksLoaded = JSON.parse(localStorage.getItem('tasks'));
+    setTasks(tasksLoaded);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleChange = (event) => {
     setNewTask(event.target.value);
