@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import { FaPlus, FaEdit, FaWindowClose } from 'react-icons/fa';
+
+import Form from '../../components/Form';
+import Modal from '../../components/Modal';
+import TaskList from '../../components/TaskList';
 
 import './styles.css';
 
 function Main() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [editedTask, setEditedTask] = useState({
+    name: '',
+    index: -1
+  });
 
-  const handleNewTask = (event) => {
+  const handleChange = (event) => {
     setNewTask(event.target.value);
   };
 
@@ -21,27 +29,31 @@ function Main() {
     }
   };
 
+  const handleDelete = (index) => {
+    const removedList = [...tasks];
+    removedList.splice(index, 1);
+    setTasks(removedList);
+  };
+
+  const handleEdit = (name, index) => {
+    setEditedTask({ name, index });
+    setShowModal(true);
+  };
+
+  const handleSubmitEdited = (task, index) => {
+    setTasks((prevTasks) => {
+      const editedList = [...prevTasks];
+      editedList[index] = task;
+      return editedList;
+    });
+  };
+
   return (
     <div className="main">
-      <h1>Lista de tarefas</h1>
-
-      <form onSubmit={handleSubmit} className="form">
-        <input value={newTask} type="text" onChange={handleNewTask} />
-        <button type="submit">
-          <FaPlus />
-        </button>
-      </form>
-      <ul className="tasks">
-        {tasks.map((tarefa) => (
-          <li key={tarefa}>
-            {tarefa}
-            <span>
-              <FaEdit className="edit" />
-              <FaWindowClose className="delete" />
-            </span>
-          </li>
-        ))}
-      </ul>
+      <h1>ToDo List</h1>
+      {showModal && <Modal task={editedTask} handleSubmit={handleSubmitEdited} setShowModal={setShowModal} />}
+      <Form task={newTask} handleChange={handleChange} handleSubmit={handleSubmit} />
+      <TaskList tasks={tasks} handleEdit={handleEdit} handleDelete={handleDelete} />
     </div>
   );
 }

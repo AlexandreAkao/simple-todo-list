@@ -25,5 +25,8 @@ module.exports = {
   ],
   rules: {
     'comma-dangle': 'off',
+    'react/jsx-one-expression-per-line': 'off',
+    'max-len': 'off',
+    'react/forbid-prop-types': 'off'
   },
 };
