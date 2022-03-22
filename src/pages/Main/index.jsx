@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 
 import './styles.css';
 
 function Main() {
-  const [, setNewTask] = useState();
+  const [newTask, setNewTask] = useState();
 
   const handleNewTask = (event) => {
     setNewTask(event.target.value);
@@ -13,9 +14,11 @@ function Main() {
     <div className="main">
       <h1>Lista de tarefas</h1>
 
-      <form action="#">
-        <input type="text" onChange={handleNewTask} />
-        <button type="submit">Submit</button>
+      <form action="#" className="form">
+        <input value={newTask} type="text" onChange={handleNewTask} />
+        <button type="submit">
+          <FaPlus />
+        </button>
       </form>
 
     </div>
