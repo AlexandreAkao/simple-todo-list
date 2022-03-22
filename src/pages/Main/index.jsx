@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaWindowClose } from 'react-icons/fa';
 
 import './styles.css';
 
 function Main() {
-  const [newTask, setNewTask] = useState();
+  const [newTask, setNewTask] = useState('');
+  const [tasks] = useState([]);
 
   const handleNewTask = (event) => {
     setNewTask(event.target.value);
@@ -20,7 +21,17 @@ function Main() {
           <FaPlus />
         </button>
       </form>
-
+      <ul className="tarefas">
+        {tasks.map((tarefa) => (
+          <li key={tarefa}>
+            {tarefa}
+            <span>
+              <FaEdit className="edit" />
+              <FaWindowClose className="delete" />
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
